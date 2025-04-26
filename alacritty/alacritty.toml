@@ -10,6 +10,7 @@ normal = { family = "0xProto Nerd Font", style = "Regular" }
 bold = { family = "0xProto Nerd Font", style = "Bold" }
 italic = { family = "0xProto Nerd Font", style = "Italic" }
 bold_italic = { family = "0xProto Nerd Font", style = "Bold Italic" }
+size = 12.0
 
 [keyboard]
 bindings = [
