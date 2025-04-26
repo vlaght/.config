@@ -53,11 +53,11 @@ return {
         opts = {
             search = {
                 anaconda_base = {
-                    command = "fd '/python$' ~/.miniconda/bin --full-path --color never -E /proc",
+                    command = "fd '/python$' $CONDA_PREFIX/bin --full-path --color never",
                     type = "anaconda",
                 },
                 anaconda_envs = {
-                    command = "fd 'bin/python$' ~/.miniconda/envs --full-path --color never -E /proc",
+                    command = "fd 'bin/python$' $CONDA_PREFIX/envs --full-path --color never",
                     type = "anaconda",
                 },
             },
