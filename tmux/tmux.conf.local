@@ -141,8 +141,11 @@ tmux_conf_theme_focused_pane_bg="$tmux_conf_theme_colour_2"
 tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
-tmux_conf_theme_pane_border="$tmux_conf_theme_colour_2"
-tmux_conf_theme_pane_active_border="$tmux_conf_theme_colour_4"
+# tmux_conf_theme_pane_border="$tmux_conf_theme_colour_2"
+# tmux_conf_theme_pane_active_border="$tmux_conf_theme_colour_4"
+# border colours
+set -g pane-border-style fg=magenta
+set -g pane-active-border-style "bg=default fg=magenta"
 %if #{>=:#{version},3.2}
 tmux_conf_theme_pane_active_border="#{?pane_in_mode,$tmux_conf_theme_colour_9,#{?synchronize-panes,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_4}}"
 %endif
