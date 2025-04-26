@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
         end
 
         -- Safely call hover if the symbol exists
-        local success = pcall(vim.lsp.buf.hover)
+        local success = pcall(vim.lsp.buf.hover, { border = "single" })
         if success then
             -- Find the hover window (it is usually the last floating window)
             local wins = vim.api.nvim_tabpage_list_wins(0)
