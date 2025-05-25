@@ -155,3 +155,6 @@ vim.schedule(function()
 end)
 
 vim.opt.relativenumber = true
+
+require("telescope").load_extension "lazygit"
+require("git-conflict").setup {}
