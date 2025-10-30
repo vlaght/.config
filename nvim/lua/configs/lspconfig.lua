@@ -1,24 +1,26 @@
--- load defaults i.e lua_lsp
-require("nvchad.configs.lspconfig").defaults()
+local servers = {
+  html = {},
+  awk_ls = {},
+  bashls = {},
 
-local lspconfig = require "lspconfig"
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          typeCheckingMode = "basic",
+        },
+      },
+    },
+  },
+}
 
--- EXAMPLE
-local servers = { "html", "cssls" }
-local nvlsp = require "nvchad.configs.lspconfig"
-
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
+for name, opts in pairs(servers) do
+  vim.lsp.config(name, opts)
+  vim.lsp.enable(name)
 end
 
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
+-- if you dont want to call the enable method in the loop, just pass a table.
+-- vim.lsp.enable(vim.tbl_keys(servers))
+-- vim.lsp.enable({"pyright", "clangd"})
+

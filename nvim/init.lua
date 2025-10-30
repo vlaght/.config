@@ -11,7 +11,6 @@ if not vim.uv.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         repo,
-        "--branch=stable",
         lazypath,
     }
 end
@@ -25,7 +24,6 @@ require("lazy").setup({
     {
         "NvChad/NvChad",
         lazy = false,
-        branch = "v2.5",
         import = "nvchad.plugins",
     },
 
@@ -39,57 +37,33 @@ dofile(vim.g.base46_cache .. "statusline")
 require "options"
 require "nvchad.autocmds"
 
--- Configure `ruff-lsp`.
--- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ruff_lsp
--- For the default config, along with instructions on how to customize the settings
 local on_attach = function(client, _)
-    vim.api.nvim_set_keymap(
-        "n",
-        "gD",
-        "<cmd>lua vim.lsp.buf.declaration()<CR>",
-        { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-        "n",
-        "gd",
-        "<cmd>lua vim.lsp.buf.definition()<CR>",
-        { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-        "n",
-        "gF",
-        "<cmd>lua vim.lsp.buf.format()<CR>",
-        { noremap = true, silent = true }
-    )
-    vim.api.nvim_set_keymap(
-        "n",
-        "grc",
-        "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
-        { noremap = true, silent = true }
-    )
-
     if client.name == "ruff" then
         -- Disable hover in favor of Pyright
         client.server_capabilities.hoverProvider = false
     end
 end
 
-local lspconfig = require "lspconfig"
-
-lspconfig.ruff.setup {
+vim.lsp.config("ruff", {
     on_attach = on_attach,
-}
+})
+vim.lsp.enable "ruff"
 
-lspconfig.pyright.setup {
+vim.lsp.config("pyright", {
     on_attach = on_attach,
     settings = {
         pyright = {
             disableOrganizeImports = true,
         },
     },
-}
+})
+vim.lsp.enable "pyright"
 
-lspconfig.gopls.setup {}
+vim.lsp.config("gopls", {})
+vim.lsp.enable "gopls"
+
+vim.lsp.config("lua-language-server", {})
+vim.lsp.enable "lua-language-server"
 -- show tree on startup
 -- local nvim_tree_api = require "nvim-tree.api"
 -- nvim_tree_api.tree.toggle()
@@ -153,8 +127,6 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 vim.schedule(function()
     require "mappings"
 end)
-
-vim.opt.relativenumber = true
 
 require("telescope").load_extension "lazygit"
 require("git-conflict").setup {}
