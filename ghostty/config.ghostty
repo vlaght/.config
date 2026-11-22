@@ -52,3 +52,5 @@
 # resize-overlay-duration = 4s 200ms
 
 theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+
+shell-integration-features = ssh-terminfo,ssh-env
