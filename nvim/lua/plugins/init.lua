@@ -52,7 +52,7 @@ return {
         dependencies = { "nvim-telescope/telescope-ui-select.nvim" },
         keys = {
             {
-                "<leader>p",
+                "<leader><leader>",
                 function()
                     require("configs.legendary").find()
                 end,
