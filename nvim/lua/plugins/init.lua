@@ -45,4 +45,33 @@ return {
         },
     },
     { "akinsho/git-conflict.nvim", version = "*", config = true },
+    {
+        "mrjones2014/legendary.nvim",
+        priority = 10000,
+        lazy = false,
+        dependencies = { "nvim-telescope/telescope-ui-select.nvim" },
+        keys = {
+            {
+                "<leader>p",
+                function()
+                    require("configs.legendary").find()
+                end,
+                desc = "Command palette",
+            },
+        },
+        config = function()
+            require("legendary").setup {
+                extensions = { lazy_nvim = true },
+            }
+            local telescope = require "telescope"
+            telescope.setup {
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown {},
+                    },
+                },
+            }
+            telescope.load_extension "ui-select"
+        end,
+    },
 }
